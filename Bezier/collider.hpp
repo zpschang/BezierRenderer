@@ -19,7 +19,7 @@ class Collider
 {
 public:
     Collider(){}
-    Color get_color(Point3d intersection, Point3d direction_norm, Point3d direction_out, Texture& texture);
+    Color get_color(Point3d intersection, Point3d direction_norm, Point3d direction_out, Texture& texture, Point2d pos);
 };
 
 #endif /* collider_hpp */

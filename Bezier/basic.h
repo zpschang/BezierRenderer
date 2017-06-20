@@ -12,7 +12,9 @@
 #include <vector>
 #include <Eigen/Dense>
 
-typedef Eigen::Matrix<float, 3, 1> Point3d;
+typedef Eigen::Matrix<double, 3, 1> Point3d;
+typedef Eigen::Matrix<double, 2, 1> Point2d;
+
 class Ray
 {
 public:

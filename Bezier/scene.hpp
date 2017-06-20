@@ -25,10 +25,10 @@ class Scene
     Point3d me, my_direction;
     Renderer *renderer;
 public:
+    Color color_background;
     vector<Object*> objects;
     vector<Light*> lights;
     Scene(char *filename);
-    void write_info(char *filename);
     void set_pos(Point3d, Point3d);
     void set_renderer(Renderer*);
     void render();

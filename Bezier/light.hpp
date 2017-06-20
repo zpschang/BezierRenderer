@@ -10,10 +10,15 @@
 #define light_hpp
 
 #include <stdio.h>
+#include <string>
+#include "basic.h"
 
 class Light
 {
-    
+public:
+    double L;
+    Point3d pos;
+    void set_attribute(std::string info);
 };
 
 #endif /* light_hpp */

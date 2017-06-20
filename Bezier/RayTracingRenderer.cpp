@@ -21,29 +21,35 @@ Color RayTracingRenderer::render(Ray ray)
     double mini_length = 1e100;
     Object *object = nullptr;
     Point3d intersection, direction_norm;
+    Point2d pos;
     for(Object* tmp_object : scene->objects)
     {
         double tmp;
         Point3d tmp_point;
-        tmp_object->find_intersection(ray, tmp, tmp_point);
+        Point2d tmp_pos;
+        tmp_object->find_intersection(ray, tmp, tmp_point, tmp_pos);
         if(tmp < mini_length)
         {
             mini_length = tmp;
             direction_norm = tmp_point;
+            pos = tmp_pos;
             intersection = ray.start + tmp*ray.direction;
             object = tmp_object;
         }
     }
     if(object == nullptr)
-        return Color(0, 0, 0);
+        return scene->color_background;
     
     // get colors
     
     Texture& texture = object->texture;
-    Color color_diffuse, color_reflect, color_refract;
-    color_diffuse = Collider().get_color(intersection, direction_norm, -ray.direction, texture);
-    Color color = color_diffuse * texture.diffuse_rate;
+    Color color_diffuse, color_reflect, color_refract, color;
     
+    if(texture.state & Texture::diffuse)
+    {
+        color_diffuse = Collider().get_color(intersection, direction_norm, -ray.direction, texture, pos);
+        color = color + color_diffuse * texture.diffuse_rate;
+    }
     if(texture.state & Texture::reflect)
     {
         Ray ray_next;

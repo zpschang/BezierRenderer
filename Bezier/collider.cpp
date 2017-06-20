@@ -8,7 +8,7 @@
 
 #include "collider.hpp"
 
-Color Collider::get_color(Point3d intersection, Point3d direction_norm, Point3d direction_out, Texture& texture)
+Color Collider::get_color(Point3d intersection, Point3d direction_norm, Point3d direction_out, Texture& texture, Point2d pos)
 {
     return Color(0, 0, 0);
 }
