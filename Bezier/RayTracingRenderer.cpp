@@ -25,7 +25,7 @@ Color RayTracingRenderer::render(Ray ray)
     {
         double tmp;
         Point3d tmp_point;
-        tmp_object->find_cross(ray, tmp, tmp_point);
+        tmp_object->find_intersection(ray, tmp, tmp_point);
         if(tmp < mini_length)
         {
             mini_length = tmp;

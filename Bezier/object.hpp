@@ -17,7 +17,7 @@ class Object
 {
 public:
     Texture texture;
-    virtual void find_cross(Ray ray, double& k, Point3d& direction_norm) = 0;
+    virtual void find_intersection(Ray ray, double& k, Point3d& direction_norm) = 0;
     virtual void find_reflection(Ray ray, Ray& ray_reflection) = 0;
     virtual void find_refraction(Ray ray, Ray& ray_refraction) = 0;
     virtual void set_distribute(char *info) = 0;
