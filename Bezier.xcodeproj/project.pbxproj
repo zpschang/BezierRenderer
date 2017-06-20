@@ -157,6 +157,7 @@
 		C65E15C51EF962F400451808 /* collider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = collider.hpp; sourceTree = "<group>"; };
 		C65E15C71EF96B4D00451808 /* RayTracingRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RayTracingRenderer.cpp; sourceTree = "<group>"; };
 		C65E15C81EF96B4D00451808 /* RayTracingRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RayTracingRenderer.hpp; sourceTree = "<group>"; };
+		C65E15CA1EF97B2800451808 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		C6AB74C31EF17008001EF1EC /* Bezier */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Bezier; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6AB74C61EF17008001EF1EC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C6AB74CD1EF170E6001EF1EC /* basic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = basic.h; sourceTree = "<group>"; };
@@ -295,6 +296,7 @@
 		C6AB74BA1EF17008001EF1EC = {
 			isa = PBXGroup;
 			children = (
+				C65E15CA1EF97B2800451808 /* .gitignore */,
 				C65E15B01EF9445F00451808 /* 1.png */,
 				C65E153A1EF9427500451808 /* Opencv_lib */,
 				C6AB74C51EF17008001EF1EC /* Bezier */,
