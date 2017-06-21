@@ -28,6 +28,7 @@ class Scene
     Camera *camera;
     Renderer *renderer;
 public:
+    typedef cv::Point3_<uint8_t> Pixel;
     cv::Mat *image;
     Color color_background;
     vector<Object*> objects;

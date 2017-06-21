@@ -14,9 +14,15 @@
 
 class Camera
 {
-    Camera(Point3d _pos_camera, Point3d _direction_ray, Point3d _direction_vertical, int _w = 640, int _h = 480) :
-    pos_camera(_pos_camera), direction_ray(_direction_ray), direction_vertical(_direction_vertical) {}
 public:
+    Camera(Point3d _pos_camera, Point3d _direction_ray, Point3d _direction_vertical, int _w = 640, int _h = 480)
+    {
+        pos_camera = _pos_camera;
+        direction_ray = _direction_ray;
+        direction_vertical = _direction_vertical;
+        w = _w;
+        h = _h;
+    }
     Point3d pos_camera, direction_ray, direction_vertical;
     int w, h;
     Ray ray_cast(int u, int v);
