@@ -19,7 +19,7 @@ void Scene::render()
     if(image != nullptr)
         delete image;
     
-    image = new cv::Mat(2 * camera->w, 2 * camera->h, CV_8UC3);
+    image = new cv::Mat(2 * camera->h, 2 * camera->w, CV_8UC3);
     
     printf("%d %d\n", camera->h, camera->w);
     

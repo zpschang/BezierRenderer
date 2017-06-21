@@ -13,3 +13,8 @@ Point3d projection(Point3d x, Point3d y)
 {
     return x.dot(y) / y.dot(y) * y;
 }
+
+double length(Point3d x)
+{
+    return sqrt(x.dot(x));
+}

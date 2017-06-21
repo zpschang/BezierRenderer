@@ -37,7 +37,7 @@ Color RayTracingRenderer::render(Ray ray)
             object = tmp_object;
         }
     }
-    if(object == nullptr)
+    if(object == nullptr || mini_length > 1e10)
         return scene->color_background;
     
     // get colors

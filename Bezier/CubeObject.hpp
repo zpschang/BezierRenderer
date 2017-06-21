@@ -1,23 +1,25 @@
 //
-//  RectangleObject.hpp
+//  CubeObject.hpp
 //  Bezier
 //
 //  Created by 张蒲石 on 2017/6/21.
 //  Copyright © 2017年 张蒲石. All rights reserved.
 //
 
-#ifndef RectangleObject_hpp
-#define RectangleObject_hpp
+#ifndef CubeObject_hpp
+#define CubeObject_hpp
 
 #include <stdio.h>
 #include "object.hpp"
 
-class RectangleObject: public Object
+class CubeObject: public Object
 {
+public:
+    Point3d p1, p2;
     void find_intersection(Ray ray, double& k, Point3d& direction_norm, Point2d& pos);
     void find_reflection(Ray ray, Ray& ray_reflection);
     void find_refraction(Ray ray, Ray& ray_refraction);
     void set_distribute(std::string info);
 };
 
-#endif /* RectangleObject_hpp */
+#endif /* CubeObject_hpp */

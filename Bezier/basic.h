@@ -11,11 +11,16 @@
 
 #include <vector>
 #include <Eigen/Dense>
+#include <iostream>
+using std::min;
+using std::max;
 
 typedef Eigen::Matrix<double, 3, 1> Point3d;
 typedef Eigen::Matrix<double, 2, 1> Point2d;
 
 Point3d projection(Point3d x, Point3d y);
+
+double length(Point3d x);
 
 class Ray
 {
@@ -42,6 +47,21 @@ public:
     Color operator + (Color c)
     {
         return Color(r+c.r, g+c.g, b+c.b);
+    }
+    Color& operator += (Color c)
+    {
+        r += c.r;
+        g += c.g;
+        b += c.b;
+        return *this;
+    }
+    Color operator * (Color c)
+    {
+        return Color(r * c.r, g * c.g, b * c.b);
+    }
+    friend Color operator *(double t, Color c)
+    {
+        return Color(t*c.r, t*c.g, t*c.b);
     }
 };
 

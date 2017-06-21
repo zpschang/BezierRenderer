@@ -16,7 +16,12 @@
 class Light
 {
 public:
+    Light(Point3d _pos, double _L = 1): color(255, 255, 255), pos(_pos)
+    {
+        L = _L;
+    }
     double L;
+    Color color;
     Point3d pos;
     void set_attribute(std::string info);
 };
