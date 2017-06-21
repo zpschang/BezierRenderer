@@ -11,7 +11,7 @@
 Scene::Scene(char *filename)
 {
     image = nullptr;
-    
+    color_background = Color(1, 1, 1);
 }
 
 void Scene::render()
@@ -31,6 +31,8 @@ void Scene::render()
         p.x = color.b * 255;
         p.y = color.g * 255;
         p.z = color.r * 255;
+        
+        printf("%d %d end\n", v, u);
     });
     
     
@@ -46,8 +48,8 @@ void Scene::render()
             //printf("[%f, %f, %f]\n", color.r, color.g, color.b);
             image->at<cv::Vec3b>(v, u) = vec;
         }
-    }*/
-    
+    }
+    */
     
     printf("render finished\n");
     

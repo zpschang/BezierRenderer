@@ -17,6 +17,7 @@ using Eigen::MatrixXd;
 #include "scene.hpp"
 #include "RayTracingRenderer.hpp"
 #include "CubeObject.hpp"
+#include "BezierObject.hpp"
 
 Scene *scene = new Scene("");
 
@@ -29,8 +30,8 @@ int main(int argc, const char * argv[]) {
     scene->lights.push_back(new Light(Point3d(0, 5, 5), Color(0, 0, 1), 0));
     
     CubeObject *cube = new CubeObject;
-    cube->p1 = Point3d(1, 0, -1);
-    cube->p2 = Point3d(2, 1, 0);
+    cube->p1 = Point3d(1, 4, -1);
+    cube->p2 = Point3d(2, 5, 0);
     cube->texture.state = 7;
     cube->texture.refract_rate = 0.8;
     cube->texture.diffuse_rate = 0.2;
@@ -50,13 +51,24 @@ int main(int argc, const char * argv[]) {
     ground->p1 = Point3d(-100, -100, -5);
     ground->p2 = Point3d(100, 100, -2);
     ground->texture.state = (1<<Texture::diffuse)|(1<<Texture::reflect);
-    ground->texture.diffuse_rate = 1;
-    ground->texture.reflect_rate = 0;
+    ground->texture.diffuse_rate = 0.8;
+    ground->texture.reflect_rate = 0.2;
     ground->texture.type = 1;
     scene->objects.push_back(ground);
+    
+    BezierObject *bezier = new BezierObject;
+    bezier->set_attribute(std::string("2 2 0 0 1.5 0 3 0.5 0 6 1 3 0 1.8 3 3 0.3 3 6 2.0 6 0 1.6 6 3 2.5 6 6 5"));
+    bezier->texture.state = (1<<Texture::diffuse) | (1<<Texture::reflect);
+    bezier->texture.diffuse_rate = 0.5;
+    bezier->texture.reflect_rate = 0.5;
+    bezier->texture.color = Color(0, 1, 0);
+    //bezier->texture.type = 1;
+    scene->objects.push_back(bezier);
+    
     scene->render();
     
     scene->show_image();
+    scene->export_image("../../../images/out.png");
     
     return 0;
 }

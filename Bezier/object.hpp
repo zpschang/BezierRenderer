@@ -27,7 +27,6 @@ public:
     };
     virtual Info find_intersection(Ray ray) = 0;
     virtual void set_attribute(std::string info) = 0;
-    static bool is_cross(Point3d p1, Point3d p2, Ray ray);
 };
 
 #endif /* object_hpp */
