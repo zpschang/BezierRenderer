@@ -15,9 +15,17 @@
 typedef Eigen::Matrix<double, 3, 1> Point3d;
 typedef Eigen::Matrix<double, 2, 1> Point2d;
 
+Point3d projection(Point3d x, Point3d y);
+
 class Ray
 {
 public:
+    Ray(){}
+    Ray(Point3d _start, Point3d _direction)
+    {
+        start = _start;
+        direction = _direction;
+    }
     Point3d start, direction;
 };
 

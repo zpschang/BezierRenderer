@@ -14,6 +14,9 @@
 #include "renderer.hpp"
 #include "light.hpp"
 #include "basic.h"
+#include "Camera.hpp"
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 #include <vector>
 using namespace std;
@@ -22,17 +25,26 @@ class Renderer;
 
 class Scene
 {
-    Point3d me, my_direction;
+    Camera *camera;
     Renderer *renderer;
 public:
+    cv::Mat *image;
     Color color_background;
     vector<Object*> objects;
     vector<Light*> lights;
+    
     Scene(char *filename);
-    void set_pos(Point3d, Point3d);
-    void set_renderer(Renderer*);
+    void set_camera(Camera* _camera)
+    {
+        camera = _camera;
+    }
+    void set_renderer(Renderer* _renderer)
+    {
+        renderer = _renderer;
+    }
     void render();
-    void export_img(char *filename);
+    void show_image();
+    void export_image(char *filename);
 };
 
 #endif /* scene_hpp */

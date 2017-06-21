@@ -14,6 +14,7 @@
 
 class RayTracingRenderer: public Renderer
 {
+public:
     RayTracingRenderer();
     Color render(Ray ray);
 };
