@@ -12,9 +12,9 @@ Color Collider::get_color(Point3d intersection, Point3d direction_norm, Point3d 
 {
     // get color from texture
     
-    Color color(200, 200, 200);
+    Color color_texture(1, 1, 1);
     
-    double rho_d = 0.5, rho_s = 0.5, s = 2;
+    double rho_d = 0.4, rho_s = 0.4, rho_e = 0.2, s = 3;
     Color sum_diff(0, 0, 0), sum_mirr(0, 0, 0);
     double sum_L = 0;
     
@@ -23,7 +23,7 @@ Color Collider::get_color(Point3d intersection, Point3d direction_norm, Point3d 
     
     for(Light* light: scene->lights)
     {
-        Point3d direction_light = intersection - light->pos;
+        Point3d direction_light = light->pos - intersection;
         if(direction_light.dot(direction_norm) < 0)
             continue;
         
@@ -32,9 +32,13 @@ Color Collider::get_color(Point3d intersection, Point3d direction_norm, Point3d 
         Point3d R = direction_out / length(direction_out);
         Point3d V = 2 * N * N.dot(L) - L;
         
-        sum_diff += light->L / sum_L * L.dot(N) * light->color;
-        sum_mirr += light->L / sum_L * pow(R.dot(V), s) * light->color;
+        sum_diff += light->L / sum_L * L.dot(N) * texture.color;
+        if(R.dot(V) >= 0)
+            sum_mirr += light->L / sum_L * pow(R.dot(V), s) * light->color;
+        
     }
+    Color color = rho_d * sum_diff+ rho_s * sum_mirr + rho_e * texture.color;
+    color = color * color_texture;
     
-    return color*(rho_d * sum_diff + rho_s * sum_mirr);
+    return color;
 }

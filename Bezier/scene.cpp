@@ -23,16 +23,16 @@ void Scene::render()
     
     printf("%d %d\n", camera->h, camera->w);
     
+    
     image->forEach<Pixel>([this](Pixel& p, const int * position) -> void {
         int v = position[0], u = position[1];
-        Ray ray = camera->ray_cast(u - camera->w, v - camera->h);
+        Ray ray = camera->ray_cast(u, v);
         Color color = renderer->render(ray);
-        p.x = color.b;
-        p.y = color.g;
-        p.z = color.r;
+        p.x = color.b * 255;
+        p.y = color.g * 255;
+        p.z = color.r * 255;
     });
     
-    printf("render finished\n");
     
     /*
     for(int v = 0; v < 2 * camera->h; v++)
@@ -40,13 +40,18 @@ void Scene::render()
         printf("%d\n", v);
         for(int u = 0; u < 2 * camera->w; u++)
         {
-            Ray ray = camera->ray_cast(u - camera->w, v - camera->h);
-            Color color = renderer->render(ray);
+            Ray ray = camera->ray_cast(u, v);
+            Color color = renderer->render(ray) * 255;
             cv::Vec3b vec(color.b, color.g, color.r);
+            //printf("[%f, %f, %f]\n", color.r, color.g, color.b);
             image->at<cv::Vec3b>(v, u) = vec;
         }
     }
-     */
+    */
+    
+    printf("render finished\n");
+    
+    
 }
 
 void Scene::show_image()

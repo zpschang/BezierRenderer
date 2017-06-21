@@ -45,12 +45,12 @@ Color RayTracingRenderer::render(Ray ray)
     Texture& texture = object->texture;
     Color color_diffuse, color_reflect, color_refract, color;
     
-    if(texture.state & Texture::diffuse)
+    if(texture.state & (1<<Texture::diffuse))
     {
         color_diffuse = Collider().get_color(intersection, direction_norm, -ray.direction, texture, pos);
         color = color + color_diffuse * texture.diffuse_rate;
     }
-    if(texture.state & Texture::reflect)
+    if(texture.state & (1<<Texture::reflect))
     {
         Ray ray_next;
         object->find_reflection(ray, ray_next);
@@ -58,7 +58,7 @@ Color RayTracingRenderer::render(Ray ray)
         color = color + color_reflect * texture.reflect_rate;
     }
     
-    if(texture.state & Texture::refract)
+    if(texture.state & (1<<Texture::refract))
     {
         Ray ray_next;
         object->find_refraction(ray, ray_next);

@@ -12,7 +12,7 @@ Ray Camera::ray_cast(int u, int v)
 {
     Point3d t1 = projection(direction_vertical, direction_ray);
     Point3d iv = direction_vertical - t1; // image vertical
-    Point3d ih = direction_ray.cross(iv) / sqrt(iv.dot(iv)); // image horizonal
+    Point3d ih = direction_ray.cross(iv) / length(direction_ray); // image horizonal
     
     Point3d direction = direction_ray + ih * (u-w) / w + iv * (h-v) / h;
     

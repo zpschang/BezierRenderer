@@ -16,7 +16,7 @@
 class Light
 {
 public:
-    Light(Point3d _pos, double _L = 1): color(255, 255, 255), pos(_pos)
+    Light(Point3d _pos, Color _color = Color(1, 1, 1), double _L = 1): color(_color), pos(_pos)
     {
         L = _L;
     }
