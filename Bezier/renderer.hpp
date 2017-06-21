@@ -20,7 +20,7 @@ extern Scene *scene;
 class Renderer
 {
 public:
-    virtual Color render(Ray ray) = 0;
+    virtual Color render(Ray ray, double rate=1) = 0;
     
 };
 

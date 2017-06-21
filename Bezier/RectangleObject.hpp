@@ -14,7 +14,7 @@
 
 class RectangleObject: public Object
 {
-    void find_intersection(Ray ray, double& k, Point3d& direction_norm, Point2d& pos);
+    Info find_intersection(Ray ray);
     void find_reflection(Ray ray, Ray& ray_reflection);
     void find_refraction(Ray ray, Ray& ray_refraction);
     void set_distribute(std::string info);

@@ -29,11 +29,13 @@ int main(int argc, const char * argv[]) {
     scene->lights.push_back(new Light(Point3d(0, 5, 5), Color(0, 0, 1), 0));
     
     CubeObject *cube = new CubeObject;
-    cube->p1 = Point3d(0, -1, -2);
+    cube->p1 = Point3d(1, 0, -1);
     cube->p2 = Point3d(2, 1, 0);
-    cube->texture.state = 1<<Texture::diffuse;
-    cube->texture.diffuse_rate = 1;
+    cube->texture.state = 7;
+    cube->texture.refract_rate = 0.8;
+    cube->texture.diffuse_rate = 0.2;
     cube->texture.color = Color(1, 0, 0);
+    
     scene->objects.push_back(cube);
     
     cube = new CubeObject;
@@ -47,8 +49,10 @@ int main(int argc, const char * argv[]) {
     CubeObject *ground = new CubeObject;
     ground->p1 = Point3d(-100, -100, -5);
     ground->p2 = Point3d(100, 100, -2);
-    ground->texture.state = 1<<Texture::diffuse;
+    ground->texture.state = (1<<Texture::diffuse)|(1<<Texture::reflect);
     ground->texture.diffuse_rate = 1;
+    ground->texture.reflect_rate = 0;
+    ground->texture.type = 1;
     scene->objects.push_back(ground);
     scene->render();
     

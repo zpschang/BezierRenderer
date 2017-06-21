@@ -16,7 +16,7 @@ class CubeObject: public Object
 {
 public:
     Point3d p1, p2;
-    void find_intersection(Ray ray, double& k, Point3d& direction_norm, Point2d& pos);
+    Object::Info find_intersection(Ray ray);
     void find_reflection(Ray ray, Ray& ray_reflection);
     void find_refraction(Ray ray, Ray& ray_refraction);
     void set_distribute(std::string info);

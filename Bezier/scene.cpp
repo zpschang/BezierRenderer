@@ -46,8 +46,8 @@ void Scene::render()
             //printf("[%f, %f, %f]\n", color.r, color.g, color.b);
             image->at<cv::Vec3b>(v, u) = vec;
         }
-    }
-    */
+    }*/
+    
     
     printf("render finished\n");
     

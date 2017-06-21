@@ -16,7 +16,7 @@ class RayTracingRenderer: public Renderer
 {
 public:
     RayTracingRenderer();
-    Color render(Ray ray);
+    Color render(Ray ray, double rate=1);
 };
 
 #endif /* RayTracingRenderer_hpp */

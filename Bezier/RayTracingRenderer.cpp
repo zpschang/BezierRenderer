@@ -15,25 +15,28 @@ RayTracingRenderer::RayTracingRenderer()
     
 }
 
-Color RayTracingRenderer::render(Ray ray)
+Color RayTracingRenderer::render(Ray ray, double rate)
 {
     // calculate all the intersections, find nearest
     double mini_length = 1e100;
     Object *object = nullptr;
-    Point3d intersection, direction_norm;
-    Point2d pos;
+    Point3d intersection;
+    Object::Info info;
+    
+    int flag_reflect = 0;
+    
+    if(rate < 1e-3)
+        return scene->color_background;
+    
     for(Object* tmp_object : scene->objects)
     {
-        double tmp;
-        Point3d tmp_point;
-        Point2d tmp_pos;
-        tmp_object->find_intersection(ray, tmp, tmp_point, tmp_pos);
-        if(tmp < mini_length)
+        Object::Info _info;
+        _info = tmp_object->find_intersection(ray);
+        if(_info.k < mini_length)
         {
-            mini_length = tmp;
-            direction_norm = tmp_point;
-            pos = tmp_pos;
-            intersection = ray.start + tmp*ray.direction;
+            mini_length = _info.k;
+            info = _info;
+            intersection = ray.start + info.k*ray.direction;
             object = tmp_object;
         }
     }
@@ -47,23 +50,54 @@ Color RayTracingRenderer::render(Ray ray)
     
     if(texture.state & (1<<Texture::diffuse))
     {
-        color_diffuse = Collider().get_color(intersection, direction_norm, -ray.direction, texture, pos);
+        color_diffuse = Collider().get_color(intersection, info.direction_norm, -ray.direction, texture, info.pos);
         color = color + color_diffuse * texture.diffuse_rate;
     }
     if(texture.state & (1<<Texture::reflect))
     {
         Ray ray_next;
-        object->find_reflection(ray, ray_next);
-        color_reflect = render(ray_next);
-        color = color + color_reflect * texture.reflect_rate;
+        
+        Point3d N = info.direction_norm / length(info.direction_norm);
+        Point3d L = -ray.direction / length(ray.direction);
+        
+        if(info.is_in && sqrt(1 - pow(N.dot(L), 2)) * texture.n > 1)
+            flag_reflect = 1;
+        
+        ray_next.start = intersection;
+        ray_next.direction = 2 * N * N.dot(L) - L;
+       
+        
+            color_reflect = render(ray_next, rate * texture.reflect_rate);
+            color = color + color_reflect * texture.reflect_rate;
+        
     }
     
     if(texture.state & (1<<Texture::refract))
     {
         Ray ray_next;
-        object->find_refraction(ray, ray_next);
-        color_refract = render(ray_next);
-        color = color + color_refract * texture.refract_rate;
+        
+        Point3d N = info.direction_norm / length(info.direction_norm);
+        Point3d L = -ray.direction / length(ray.direction);
+        double sine;
+        if(!info.is_in)
+            sine = sqrt(1 - pow(N.dot(L), 2)) / texture.n;
+        else
+            sine = sqrt(1 - pow(N.dot(L), 2)) * texture.n;
+        double tang = sine / sqrt(1 - pow(sine, 2));
+        Point3d H = N.cross(N.cross(L));
+        H = H / length(H);
+        
+        //std::cout<< "aaa\n" << ray.start << "\n" << ray.direction << "\n";
+        
+        ray_next.start = intersection;
+        ray_next.direction = -N + H*tang;
+        
+        //std::cout<< ray_next.start << "\n" << ray_next.direction << "\n";
+        //if(!flag_reflect)
+        {
+            color_refract = render(ray_next, rate * texture.refract_rate);
+            color = color + color_refract * texture.refract_rate;
+        }
     }
     
     return color;

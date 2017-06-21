@@ -13,14 +13,41 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "basic.h"
+#include <functional>
 
 class Texture
 {
 public:
     Texture(): color(1, 1, 1)
     {
+        n = 1.1;
+        type = 0;
     }
-    double reflect_rate, refract_rate, diffuse_rate;
+    int type;
+    Color get_color(Point2d p)
+    {
+        if(type == 0)
+            return one_color(p);
+        else if(type == 1)
+            return white_black(p);
+        else
+            return Color(0, 0, 0);
+    }
+    Color one_color(Point2d)
+    {
+        return color;
+    }
+    
+    Color white_black(Point2d p)
+    {
+        int x = int(p[0]) / 4, y = int(p[1]) / 4;
+        if((x + y) % 2 == 0)
+            return Color(1, 1, 1);
+        else
+            return Color(0, 0, 0);
+    }
+    
+    double reflect_rate, refract_rate, diffuse_rate, n;
     cv::Mat image;
     Color color;
     
