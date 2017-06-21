@@ -18,14 +18,14 @@ class BezierObject: public Object
 {
 public:
     int n, m;
-    Eigen::MatrixX3d point[3];
+    std::vector<std::vector<Point3d>> point;
     Point3d p1, p2;
     
     Object::Info find_intersection(Ray ray);
     void set_attribute(std::string info);
     
     void calc_round();
-    Point3d calc_point(double u, double v);
+    Point3d calc_point(double u, double v, int m, int n, std::vector<std::vector<Point3d>> point);
     std::pair<Point3d, Point3d> calc_derivative(double u, double v);
     Point3d calc_norm(double u, double v);
 };
