@@ -14,7 +14,7 @@ Color Collider::get_color(Point3d intersection, Point3d direction_norm, Point3d 
     
     Color texture_color = texture.get_color(pos);
     
-    double rho_d = 1, rho_s = 0., rho_e = 0., s = 6;
+    double rho_d = 0.4, rho_s = 0.4, rho_e = 0.2, s = 6;
     Color sum_diff(0, 0, 0), sum_mirr(0, 0, 0);
     double sum_L = 0;
     
@@ -37,6 +37,6 @@ Color Collider::get_color(Point3d intersection, Point3d direction_norm, Point3d 
             sum_mirr += light->L / sum_L * pow(R.dot(V), s) * light->color;
         
     }
-    Color color = rho_d * sum_diff+ rho_s * sum_mirr + rho_e * texture.color;
+    Color color = rho_d * sum_diff+ rho_s * sum_mirr + rho_e * texture_color;
     return color;
 }

@@ -15,9 +15,7 @@
 class RectangleObject: public Object
 {
     Info find_intersection(Ray ray);
-    void find_reflection(Ray ray, Ray& ray_reflection);
-    void find_refraction(Ray ray, Ray& ray_refraction);
-    void set_distribute(std::string info);
+    void set_attribute(std::string info);
 };
 
 #endif /* RectangleObject_hpp */

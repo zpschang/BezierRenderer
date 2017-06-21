@@ -40,7 +40,7 @@ public:
     
     Color white_black(Point2d p)
     {
-        int x = int(p[0]) / 4, y = int(p[1]) / 4;
+        int x = int(p[0]*100) / 4, y = int(p[1]*100) / 4;
         if((x + y) % 2 == 0)
             return Color(1, 1, 1);
         else

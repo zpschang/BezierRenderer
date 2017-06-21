@@ -26,9 +26,8 @@ public:
         int is_in;
     };
     virtual Info find_intersection(Ray ray) = 0;
-    virtual void find_reflection(Ray ray, Ray& ray_reflection) = 0;
-    virtual void find_refraction(Ray ray, Ray& ray_refraction) = 0;
-    virtual void set_distribute(std::string info) = 0;
+    virtual void set_attribute(std::string info) = 0;
+    static bool is_cross(Point3d p1, Point3d p2, Ray ray);
 };
 
 #endif /* object_hpp */

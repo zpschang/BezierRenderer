@@ -91,7 +91,7 @@ void CubeObject::find_refraction(Ray ray, Ray& ray_refraction)
     
 }
 
-void CubeObject::set_distribute(std::string info)
+void CubeObject::set_attribute(std::string info)
 {
     
 }
