@@ -54,6 +54,9 @@ public:
     void get_image(char *filename);
     enum State{diffuse=0, reflect=1, refract=2};
     int state;
+    
+    void set_attribute(std::string info);
+    std::string to_string();
 };
 
 #endif /* texture_hpp */

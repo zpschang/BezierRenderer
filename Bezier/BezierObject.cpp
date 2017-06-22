@@ -14,13 +14,24 @@ void BezierObject::set_attribute(std::string info)
 {
     std::stringstream stream(info);
     stream >> n >> m;
-    point.assign(m+1, std::vector<Point3d>(n+1));
+    
     for(int i = 0; i <= m; i++)
         for(int j = 0; j <= n; j++)
             for(int k = 0; k < 3; k++)
                 stream >> point[i][j][k];
     flag = 0;
     calc_round();
+}
+
+std::string BezierObject::to_string()
+{
+    std::stringstream stream;
+    stream << "bezier " << n << ' ' << m << ' ';
+    for(int i = 0; i <= m; i++)
+        for(int j = 0; j <= n; j++)
+            for(int k = 0; k < 3; k++)
+                stream << point[i][j][k] << ' ';
+    return stream.str();
 }
 
 Object::Info BezierObject::find_intersection(Ray ray)
@@ -39,15 +50,15 @@ Object::Info BezierObject::find_intersection(Ray ray)
     
     double t0 = ray.direction.dot(mid - ray.start) / pow(length(ray.direction), 2);
     
-    double t = t0, u0 = 0.5, v0 = 0.5;
-    Point3d vec(t, u0, v0);
+    double t = t0, u0 = 0.1, v0 = 0.1;
+    Point3d vec(t, u0, v0), delta;
     int flag = 1, step = 0;
-    while(flag && step <= 15)
+    while(flag && step <= 10)
     {
         step ++;
         Point3d p_surface = calc_point(u0, v0, m, n, point);
         Point3d p_line = ray.start + t * ray.direction;
-        Point3d delta = p_surface - p_line;
+        delta = p_surface - p_line;
         auto pair = calc_derivative(u0, v0);
         Eigen::Matrix<double, 3, 3> mat;
         for(int i = 0; i < 3; i++)
@@ -61,11 +72,11 @@ Object::Info BezierObject::find_intersection(Ray ray)
         
         vec -= mat.inverse() * delta;
         
-        if(std::abs(u0 - vec[1]) < 0.001 && std::abs(v0 - vec[2]) < 0.001)
+        if(length(delta) < 0.005)
             flag = 0;
         t = vec[0], u0 = vec[1], v0 = vec[2];
     }
-    if(u0 > 1 || u0 < 0 || v0 > 1 || v0 < 0)
+    if(u0 > 1 || u0 < 0 || v0 > 1 || v0 < 0 || flag || t < 0.001)
     {
         info.k = 1e100;
         return info;
@@ -95,10 +106,9 @@ void BezierObject::calc_round()
 }
 
 Point3d BezierObject::calc_point(double u, double v, int m, int n,
-                                 std::vector<std::vector<Point3d>> &point)
+                                 Array &point)
 {
-    std::vector<std::vector<Point3d>> f;
-    f.assign(m+1, std::vector<Point3d>(n+1));
+    Array f;
     for(int i = 0; i <= m; i++)
         for(int j = 0; j <= n; j++)
             f[i][j] = point[i][j];
@@ -114,8 +124,7 @@ Point3d BezierObject::calc_point(double u, double v, int m, int n,
 
 std::pair<Point3d, Point3d> BezierObject::calc_derivative(double u, double v)
 {
-    std::vector<std::vector<Point3d>> tmp_point;
-    tmp_point.assign(m+1, std::vector<Point3d>(n+1));
+    Array tmp_point;
     for(int i = 0; i <= m-1; i++)
         for(int j = 0; j <= n; j++)
             for(int k = 0; k < 3; k++)

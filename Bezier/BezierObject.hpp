@@ -19,14 +19,18 @@ class BezierObject: public Object
 public:
     int flag;
     int n, m;
-    std::vector<std::vector<Point3d>> point;
+    
+    typedef Point3d Array[4][4];
+    
+    Array point;
     Point3d p1, p2;
     
     Object::Info find_intersection(Ray ray);
     void set_attribute(std::string info);
+    std::string to_string();
     
     void calc_round();
-    Point3d calc_point(double u, double v, int m, int n, std::vector<std::vector<Point3d>> &point);
+    Point3d calc_point(double u, double v, int m, int n, Array &point);
     std::pair<Point3d, Point3d> calc_derivative(double u, double v);
     Point3d calc_norm(double u, double v);
     

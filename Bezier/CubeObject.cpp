@@ -7,6 +7,7 @@
 //
 
 #include "CubeObject.hpp"
+#include <sstream>
 
 Object::Info CubeObject::find_intersection(Ray ray)
 {
@@ -81,17 +82,18 @@ Object::Info CubeObject::find_intersection(Ray ray)
     return info;
 }
 
-void CubeObject::find_reflection(Ray ray, Ray &ray_reflection)
-{
-    
-}
-
-void CubeObject::find_refraction(Ray ray, Ray& ray_refraction)
-{
-    
-}
-
 void CubeObject::set_attribute(std::string info)
 {
     
+}
+
+std::string CubeObject::to_string()
+{
+    std::stringstream stream;
+    stream << "cube ";
+    for(int i = 0; i < 3; i++)
+        stream << p1[i] << ' ';
+    for(int i = 0; i < 3; i++)
+        stream << p2[i] << ' ';
+    return stream.str();
 }

@@ -24,6 +24,7 @@ public:
     Color color;
     Point3d pos;
     void set_attribute(std::string info);
+    std::string to_string();
 };
 
 #endif /* light_hpp */

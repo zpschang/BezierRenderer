@@ -19,6 +19,7 @@ public:
     double radius;
     Object::Info find_intersection(Ray ray);
     void set_attribute(std::string info);
+    std::string to_string();
 };
 
 

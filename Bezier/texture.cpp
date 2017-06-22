@@ -7,3 +7,21 @@
 //
 
 #include "texture.hpp"
+
+#include <sstream>
+
+void Texture::set_attribute(std::string info)
+{
+    
+    
+}
+
+std::string Texture::to_string()
+{
+    std::stringstream stream;
+    stream << "texture\n";
+    stream << type << ' ' << state << ' ';
+    stream << color.r << ' ' << color.g << ' ' << color.b << ' ';
+    stream << diffuse_rate << ' ' << reflect_rate << ' ' << refract_rate;
+    return stream.str();
+}

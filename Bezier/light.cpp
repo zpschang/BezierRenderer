@@ -7,3 +7,14 @@
 //
 
 #include "light.hpp"
+
+#include <sstream>
+
+std::string Light::to_string()
+{
+    std::stringstream stream;
+    stream << pos << std::endl;
+    stream << color.r << ' ' << color.g << ' ' << color.b << ' ';
+    stream << L;
+    return stream.str();
+}

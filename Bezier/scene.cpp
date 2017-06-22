@@ -28,6 +28,14 @@ void Scene::render()
         int v = position[0], u = position[1];
         Ray ray = camera->ray_cast(u, v);
         Color color = renderer->render(ray);
+        double maxi = std::max(std::max(color.r, color.g), color.b);
+        if(maxi > 1)
+        {
+            color.b /= maxi;
+            color.g /= maxi;
+            color.r /= maxi;
+        }
+        
         p.x = color.b * 255;
         p.y = color.g * 255;
         p.z = color.r * 255;
@@ -36,12 +44,16 @@ void Scene::render()
     });
     
     
+    //Ray ray = camera->ray_cast(0, 162);
+    //Color color = renderer->render(ray) * 255;
     /*
     for(int v = 0; v < 2 * camera->h; v++)
     {
         printf("%d\n", v);
         for(int u = 0; u < 2 * camera->w; u++)
         {
+            if(v == 162)
+                printf("%d\n", u);
             Ray ray = camera->ray_cast(u, v);
             Color color = renderer->render(ray) * 255;
             cv::Vec3b vec(color.b, color.g, color.r);
@@ -66,4 +78,20 @@ void Scene::export_image(char *filename)
 {
     cv::imwrite(filename, *image);
     
+}
+
+void Scene::export_scene(char *filename)
+{
+    ofstream out(filename);
+    out << "camera" << endl << camera->to_string() << endl;
+    out << "light" << ' ' << lights.size() << endl;
+    for(int i = 0; i < lights.size(); i++)
+        out << lights[i]->to_string() << endl;
+    out << "object " << objects.size() << endl;
+    for(int i = 0; i < objects.size(); i++)
+    {
+        out << objects[i]->to_string() << endl;
+        out << objects[i]->texture.to_string() << endl;
+    }
+    out.close();
 }

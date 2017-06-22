@@ -26,6 +26,9 @@ public:
     Point3d pos_camera, direction_ray, direction_vertical;
     int w, h;
     Ray ray_cast(int u, int v);
+    
+    void set_attribute(std::string info);
+    std::string to_string();
 };
 
 #endif /* Camera_hpp */

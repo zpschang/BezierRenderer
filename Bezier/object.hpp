@@ -27,6 +27,7 @@ public:
     };
     virtual Info find_intersection(Ray ray) = 0;
     virtual void set_attribute(std::string info) = 0;
+    virtual std::string to_string() = 0;
 };
 
 #endif /* object_hpp */

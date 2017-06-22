@@ -27,15 +27,16 @@ int main(int argc, const char * argv[]) {
     scene->set_camera(new Camera(Point3d(-4, -5, 2), Point3d(1, 1, -0.6), Point3d(0, 0, 1)));
     
     scene->lights.push_back(new Light(Point3d(5, 5, 5)));
-    scene->lights.push_back(new Light(Point3d(0, 5, 5), Color(0, 0, 1), 0));
+    //scene->lights.push_back(new Light(Point3d(-5, -5, 5), Color(1, 1, 1), 1));
     
     CubeObject *cube = new CubeObject;
-    cube->p1 = Point3d(1, 4, -1);
-    cube->p2 = Point3d(2, 5, 0);
-    cube->texture.state = 7;
+    cube->p1 = Point3d(1, 1, 0);
+    cube->p2 = Point3d(2, 2, 1);
+    cube->texture.state = (1<<Texture::diffuse);
+    //cube->texture.type = 1;
     cube->texture.refract_rate = 0.8;
-    cube->texture.diffuse_rate = 0.2;
-    cube->texture.color = Color(1, 0, 0);
+    cube->texture.diffuse_rate = 1;
+    cube->texture.color = Color(0, 1, 0);
     
     scene->objects.push_back(cube);
     
@@ -57,13 +58,15 @@ int main(int argc, const char * argv[]) {
     scene->objects.push_back(ground);
     
     BezierObject *bezier = new BezierObject;
-    bezier->set_attribute(std::string("2 2 0 0 1.5 0 3 0.5 0 6 1 3 0 1.8 3 3 0.3 3 6 2.0 6 0 1.6 6 3 2.5 6 6 5"));
-    bezier->texture.state = (1<<Texture::diffuse) | (1<<Texture::reflect);
-    bezier->texture.diffuse_rate = 0.5;
-    bezier->texture.reflect_rate = 0.5;
+    bezier->set_attribute(std::string("1 1 2 -1 3.5 2 6 -0.3 9 -1 -0 9 6 2"));
+    bezier->texture.state = (1<<Texture::diffuse);
+    bezier->texture.diffuse_rate = 1;
+    bezier->texture.reflect_rate = 0.;
     bezier->texture.color = Color(0, 1, 0);
-    //bezier->texture.type = 1;
+    bezier->texture.type = 1;
     scene->objects.push_back(bezier);
+    
+    scene->export_scene("../../../scene/scene.txt");
     
     scene->render();
     

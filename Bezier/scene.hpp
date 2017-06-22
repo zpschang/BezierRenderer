@@ -19,6 +19,7 @@
 #include <opencv2/highgui/highgui.hpp>
 
 #include <vector>
+#include <fstream>
 using namespace std;
 
 class Renderer;
@@ -46,6 +47,7 @@ public:
     void render();
     void show_image();
     void export_image(char *filename);
+    void export_scene(char *filename);
 };
 
 #endif /* scene_hpp */

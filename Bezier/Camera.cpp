@@ -18,3 +18,17 @@ Ray Camera::ray_cast(int u, int v)
     
     return Ray(pos_camera, direction);
 }
+
+void Camera::set_attribute(std::string info)
+{
+    
+    
+}
+
+std::string Camera::to_string()
+{
+    std::stringstream stream;
+    stream << pos_camera << std::endl << direction_ray << std::endl << direction_vertical << std::endl;
+    stream << w << ' ' << h << ' ';
+    return stream.str();
+}
